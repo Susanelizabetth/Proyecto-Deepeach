@@ -13,7 +13,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
-    def get_abolute_url(self):
+    def get_absolute_url(self):
         return f'/{self.slug}/'
 
 class Product(models.Model):
@@ -32,7 +32,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
-    def get_abolute_url(self):
+    def get_absolute_url(self):
         return f'/{self.category.slug}/{self.slug}'
 
     def get_image(self):
@@ -56,7 +56,7 @@ class Product(models.Model):
         img.convert('RGB')
         img.thumbnail(size)
         thumb_io = BytesIO()
-        img.save(thumb_io,'JPGE', quality= 85)
+        img.save(thumb_io,'PNG', quality= 85)
 
         thumbnail = File(thumb_io, name= image.name)
         return thumbnail
