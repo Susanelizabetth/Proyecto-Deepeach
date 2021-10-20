@@ -59,8 +59,12 @@ export default {
                 password: this.password
             }
 
-            await axios
-                .post("/api/v1/token/login/", formData)
+            await axios 
+                .post("/api/v1/token/login/", formData, { withCredentials: true,
+                                                          headers: {
+                                                         'Content-Type': 'application/x-www-form-urlencoded',
+                                                         'Accept': 'application/json',
+                                                        }})
                 .then(response => {
                     const token = response.data.auth_token
 

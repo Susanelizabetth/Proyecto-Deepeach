@@ -11,7 +11,7 @@ export default createStore({
   },
   mutations: {
     initializeStore(state){
-      if (localStorage.getItem('cart') != "undefined"){
+      if (localStorage.getItem('cart')){
         state.cart = JSON.parse(localStorage.getItem('cart'))
       } else{
           localStorage.setItem('cart', JSON.stringify(state.cart))
@@ -40,7 +40,7 @@ export default createStore({
       state.isLoading = status
     },
 
-    setToken(state,token){
+    setToken(state, token){
       state.token = token
       state.isAutenticated = true
     },
