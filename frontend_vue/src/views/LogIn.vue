@@ -62,7 +62,7 @@ export default {
             await axios 
                 .post("/api/v1/token/login/", formData, { withCredentials: true,
                                                           headers: {
-                                                         'Content-Type': 'application/x-www-form-urlencoded',
+                                                         'Content-Type': 'application/json',
                                                          'Accept': 'application/json',
                                                         }})
                 .then(response => {
