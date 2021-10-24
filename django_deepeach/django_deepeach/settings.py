@@ -45,6 +45,14 @@ INSTALLED_APPS = [
     'product'
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
 ]

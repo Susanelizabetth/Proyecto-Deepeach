@@ -32,7 +32,7 @@
                     </div>
                     <hr>
                     Or
-                    <router-link to="/log-in">click here</router-link>to log in 
+                    <router-link to="/log-in">click here </router-link>to log in 
                 </form>
 
             </div>
@@ -68,40 +68,42 @@ export default {
                 this.errors.push('The password dosen\'t match')
             }
             if (!this.errors.length) {
-                const fromData = {
+                const formData = {
                     username: this.username,
                     password: this.password
                 }
+
+                axios 
+                    .post("/api/v1/users/", formData)
+                    .then(response => {
+                        toast({
+                            message: 'Account created, please log in!',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+                        
+                        this.$router.push('/log-in')
+
+                    })
+                    .catch(error => {
+                        if (error.response){
+                            for (const property in error.response.data){
+                                this.errors.push(`${property}: ${error.response.data[property]}`)
+                            }
+                            
+                            console.log(JSON.stringify(error.response.data))
+
+                        } else if (error.menssage){
+                            this.errors.push('Something went wrong. Please try again')
+                            console.log(JSON.stringify(error))
+                        }
+                    })
             }
 
-            axios 
-                .post("/api/v1/users/", formData)
-                .then(response => {
-                    toast({
-                        message: 'Account created, please log in!',
-                        type: 'is-success',
-                        dismissible: true,
-                        pauseOnHover: true,
-                        duration: 2000,
-                        position: 'bottom-right',
-                    })
-                    
-                    this.$router.push('/log-in')
-
-                })
-                .catch(error => {
-                    if (error.response){
-                        for (const property in error.response.data){
-                            this.errors.push(`${property}: ${error.response.data[property]}`)
-                        }
-                        
-                        console.log(JSON.stringify(error.response.data))
-
-                    } else if (error.menssage){
-                        this.errors.push('Something went wrong. Please try again')
-                        console.log(JSON.stringify(error))
-                    }
-                })
+            
         }
     }
 }
