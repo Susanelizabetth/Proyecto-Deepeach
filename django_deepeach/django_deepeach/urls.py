@@ -15,13 +15,36 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls.conf import include
+from django.urls.conf import include, re_path
 from django.conf import settings
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
 from django.conf.urls.static import static
-
+from drf_yasg import openapi
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Djoser API",
+        default_version="v1",
+        description="REST implementation of Django authentication system. djoser library provides a set of Django Rest Framework views to handle basic actions such as registration, login, logout, password reset and account activation. It works with custom user model.",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 urlpatterns = [
+    
+    re_path(
+        r"^api/v1/docs/$",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-ui",
+    ),
+    path(r'swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+   path(r'swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+   path(r'redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('admin/', admin.site.urls),
     path('api/v1/', include('djoser.urls')),
-    path('api/v1', include('djoser.urls.authtoken')),
-    path('api/v1/', include('product.urls'))
+    path('api/v1/', include('djoser.urls.authtoken')),
+    path('api/v1/', include('product.urls')),
+
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
