@@ -60,11 +60,7 @@ export default {
             }
 
             await axios 
-                .post("/api/v1/token/login/", formData, { withCredentials: true,
-                                                          headers: {
-                                                         'Content-Type': 'application/json',
-                                                         'Accept': 'application/json',
-                                                        }})
+                .post("/api/v1/token/login/", formData, { withCredentials: true })
                 .then(response => {
                     const token = response.data.auth_token
 
