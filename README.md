@@ -9,17 +9,7 @@ Creación de pagina web
 
 activar entorno en windows especificamente en el cmd `myenviroment\Scripts\activate.bat`
 
-`pip install django` instalar django 
-
-`pip install django-rest-framework`
-
-`pip install django-cors-headers` CROSS RESOURCE ORIGIN HTTPS HEADER
-
-`pip install djoser` autenticación de los usuarios
-
-`pip install pillow` cambiar el tamaño de las imagenes, version de python
-
-`pip install stripe` backend
+Requerimientos python `pip install -r requirements.txt` 
 
 crear un proyecto de django
 
